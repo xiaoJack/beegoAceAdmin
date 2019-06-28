@@ -35,11 +35,15 @@ func (this *IndexController) Login() {
 		data := make(map[string]interface{}, 0)
 		username := this.GetString("username")
 		password := this.GetString("password")
-		remember := this.GetString("remember")
+		//remember := this.GetString("remember")
 
-		data["username"] = username
-		data["password"] = password
-		data["remember"] = remember
+		token,err := this.auth.Login(username, password)
+		if err != nil {
+			this.Data["json"] = err
+		}else {
+			data["token"] = token
+		}
+
 		this.Data["json"] = data
 		this.ServeJSON()
 		this.StopRun()

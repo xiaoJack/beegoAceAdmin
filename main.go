@@ -1,9 +1,18 @@
 package main
 
 import (
-	_ "admin/routers"
+	"admin/common"
 	"github.com/astaxie/beego"
+	_ "admin/routers"
 )
+
+func init()  {
+	common.Init()
+
+
+}
+
+
 
 func main() {
 	beego.SetStaticPath("/assets", "assets")

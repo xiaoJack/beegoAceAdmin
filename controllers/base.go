@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"admin/common"
 	"github.com/astaxie/beego"
 	"strings"
 )
@@ -9,6 +10,8 @@ type BaseController struct {
 	beego.Controller
 	controllerName string               // 控制器名
 	actionName     string               // 动作名
+	auth           *common.AuthService // 验证服务
+
 }
 
 
