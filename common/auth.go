@@ -67,32 +67,29 @@ func getMd5Str(buf []byte) string {
 
 
 // 用户登录
-func (this *AuthService) Login(userName, password string) (string, error) {
-	fmt.Printf("username: %s\n",userName)
-	fmt.Printf("password: %s\n",password)
-	user, err := this.loginUser.GetUserByName(userName)
-	fmt.Printf("tag 123 \n")
+func (this *AuthService) Login(userName, password string) (*User, error) {
+
+	user, err := UserService.GetUserByName(userName)
+
 	if err != nil {
 		if err == orm.ErrNoRows {
-			return "", errors.New("帐号或密码错误")
+			return nil, errors.New("帐号或密码错误")
 		} else {
-			return "", errors.New("系统错误")
+			return nil, errors.New("系统错误")
 		}
 	}
 
 	if user.Password != getMd5Str([]byte(password+user.Salt)) {
-		return "", errors.New("帐号或密码错误")
+		return nil, errors.New("帐号或密码错误2")
 	}
 	if user.Status == -1 {
-		return "", errors.New("该帐号已禁用")
+		return nil, errors.New("该帐号已禁用")
 	}
 
 	user.LastLogin = time.Now()
-	this.loginUser.UpdateUser(user, "LastLogin")
-	this.loginUser = user
+	UserService.UpdateUser(user, "LastLogin")
 
-	token := fmt.Sprintf("%d|%s", user.Id, getMd5Str([]byte(user.Password+user.Salt)))
-	return token, nil
+	return user, nil
 }
 
 // 退出登录

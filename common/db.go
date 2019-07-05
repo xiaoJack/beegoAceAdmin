@@ -4,13 +4,13 @@ import (
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
 	_ "github.com/go-sql-driver/mysql"
-	"github.com/lisijie/gopub/app/entity"
 	"net/url"
 )
 
 var (
 	o                 orm.Ormer
 	tablePrefix       string             // 表前缀
+	UserService       *userService       // 用户服务
 )
 
 func Init() {
@@ -35,7 +35,7 @@ func Init() {
 	orm.RegisterDataBase("default", "mysql", dsn, dbmaxIdle, dbmaxConn)
 
 	orm.RegisterModelWithPrefix(tablePrefix,
-		new(entity.User),
+		new(User),
 	)
 
 	if beego.AppConfig.String("runmode") == "dev" {
@@ -45,8 +45,15 @@ func Init() {
 	o = orm.NewOrm()
 	orm.RunCommand()
 
+	initService()
 
 }
+
+
+func initService() {
+	UserService = &userService{}
+}
+
 
 
 // 返回真实表名

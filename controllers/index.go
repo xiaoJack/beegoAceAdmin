@@ -1,9 +1,5 @@
 package controllers
 
-import (
-	"github.com/astaxie/beego"
-)
-
 type IndexController struct {
 	BaseController
 }
@@ -12,7 +8,6 @@ type IndexController struct {
 // URLMapping ...
 func (c *IndexController) URLMapping() {
 	c.Mapping("get", c.Index)
-	c.Mapping("get,post", c.Login)
 }
 
 
@@ -23,33 +18,3 @@ func (this *IndexController) Index() {
 }
 
 
-// @router /login [get,post]
-func (this *IndexController) Login() {
-	//if this.userId > 0 {
-	//	this.redirect("/")
-	//}
-
-	beego.ReadFromRequest(&this.Controller)
-	if this.isPost() {
-		//flash := beego.NewFlash()
-		data := make(map[string]interface{}, 0)
-		username := this.GetString("username")
-		password := this.GetString("password")
-		//remember := this.GetString("remember")
-
-		token,err := this.auth.Login(username, password)
-		if err != nil {
-			this.Data["json"] = err
-		}else {
-			data["token"] = token
-		}
-
-		this.Data["json"] = data
-		this.ServeJSON()
-		this.StopRun()
-	}else{
-		this.TplName = "index/login.html"
-	}
-
-	
-}

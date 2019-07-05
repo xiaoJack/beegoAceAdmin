@@ -4,7 +4,11 @@ import (
 	"github.com/pkg/errors"
 	"time"
 )
+type userService struct{}
 
+func (this *userService) table() string {
+	return TableName("user")
+}
 
 
 type User struct {
@@ -27,7 +31,7 @@ type User struct {
 
 
 // 根据用户名获取用户信息
-func (this *User) GetUserByName(userName string) (*User, error) {
+func (this *userService) GetUserByName(userName string) (*User, error) {
 	user := &User{}
 	user.UserName = userName
 	err := o.Read(user, "UserName")
@@ -36,7 +40,7 @@ func (this *User) GetUserByName(userName string) (*User, error) {
 
 
 // 更新用户信息
-func (this *User) UpdateUser(user *User, fileds ...string) error {
+func (this *userService) UpdateUser(user *User, fileds ...string) error {
 	if len(fileds) < 1 {
 		return errors.New("更新字段不能为空")
 	}
