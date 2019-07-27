@@ -1,0 +1,51 @@
+version: '2'
+services:
+    redis:
+        image: redis
+        container_name: admin-redis
+        hostname: admin-redis
+        ports:
+            - "6379:6379"
+        environment:
+            TZ: 'Asia/Shanghai'
+        networks:
+            - default
+
+
+    mysql:
+        image: mysql:5.7
+        container_name: admin-mysql
+        hostname: admin-mysql
+        ports:
+            - "3306:3306"
+        volumes:
+            - mysql-data:/data/dockerdata/mysql5.7
+            - ./admin_install.sql:/docker-entrypoint-initdb.d/admin_install.sql
+        environment:
+            TZ: 'Asia/Shanghai'
+            MYSQL_ROOT_PASSWORD: 123456
+            MYSQL_DATABASE: admin
+        command: ['mysqld', '--character-set-server=utf8']
+
+        networks:
+            - default
+
+
+    admin:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        container_name: admin
+        hostname: admin
+        ports:
+            - "80:80"
+        environment:
+            TZ: 'Asia/Shanghai'
+            GOPATH: '/admin/views/'
+        working_dir: '/admin'
+        command: ['/admin/admin_linux']
+        networks:
+            - default
+
+volumes:
+    mysql-data:

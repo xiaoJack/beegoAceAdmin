@@ -32,6 +32,13 @@ func (this *UserController) Login() {
 
 		fmt.Print(remember)
 
+
+
+
+
+
+
+
 		user, err := this.auth.Login(username, password)
 		fmt.Print(err)
 

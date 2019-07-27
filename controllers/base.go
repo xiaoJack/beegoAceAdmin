@@ -51,6 +51,7 @@ func (this *BaseController) initAuth() {
 		//登入用户名字
 		uname := this.GetSession("UserName")
 		this.Data["userName"] = uname.(string)
+
 	}
 }
 
