@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"admin/common"
+	"fmt"
 	"github.com/astaxie/beego"
 	"strings"
 )
@@ -20,6 +21,8 @@ type BaseController struct {
 	controllerName string               // 控制器名
 	actionName     string               // 动作名
 	auth           *common.AuthService // 验证服务
+	pageSize       int                  // 默认分页大小
+
 }
 
 
@@ -30,6 +33,7 @@ func (this *BaseController) Prepare() {
 
 	this.controllerName = strings.ToLower(controllerName[0 : len(controllerName)-10])
 	this.actionName = strings.ToLower(actionName)
+	this.pageSize = 20
 
 	if this.actionName != "login" {
 		this.initAuth()
@@ -116,6 +120,7 @@ func (this *BaseController) display(tpl ...string) {
 		tplname = this.controllerName + "/" + this.actionName + ".html"
 	}
 
+	fmt.Println(tplname)
 	this.Layout = "layout/layout.html"
 	this.TplName = tplname
 

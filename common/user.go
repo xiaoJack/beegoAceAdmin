@@ -29,6 +29,27 @@ type User struct {
 
 
 
+// 分页获取用户列表
+func (this *userService) GetUserList(page, pageSize int) ([]User, error) {
+	offset := (page - 1) * pageSize
+	if offset < 0 {
+		offset = 0
+	}
+
+	var users []User
+	qs := o.QueryTable(this.table())
+	_, err := qs.OrderBy("id").Limit(pageSize, offset).All(&users)
+
+	return users, err
+}
+
+
+
+// 获取用户总数
+func (this *userService) GetTotal() (int64, error) {
+	return o.QueryTable(this.table()).Count()
+}
+
 
 // 根据用户名获取用户信息
 func (this *userService) GetUserByName(userName string) (*User, error) {
