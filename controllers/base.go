@@ -2,7 +2,6 @@ package controllers
 
 import (
 	"admin/common"
-	"fmt"
 	"github.com/astaxie/beego"
 	"strings"
 )
@@ -85,14 +84,25 @@ func (this *BaseController) showMsg(msg string, msgno int, redirect ...string) {
 	if this.IsAjax() {
 		this.jsonResult(out)
 	} else {
+
 		for k, v := range out {
 			this.Data[k] = v
 		}
-		this.display("error/message")
+		this.display()
 		this.Render()
 		this.StopRun()
 	}
 }
+
+
+
+// 错误检查
+func (this *BaseController) checkError(err error) {
+	if err != nil {
+		this.showMsg(err.Error(), MSG_ERR)
+	}
+}
+
 
 
 
@@ -120,9 +130,12 @@ func (this *BaseController) display(tpl ...string) {
 		tplname = this.controllerName + "/" + this.actionName + ".html"
 	}
 
-	fmt.Println(tplname)
 	this.Layout = "layout/layout.html"
-	this.TplName = tplname
+
+	if len(this.TplName) == 0 {
+		this.TplName = tplname
+	}
+
 
 	this.LayoutSections = make(map[string]string)
 	this.LayoutSections["Header"] = "layout/header.html"

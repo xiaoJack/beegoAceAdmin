@@ -65,6 +65,12 @@ func getMd5Str(buf []byte) string {
 	return fmt.Sprintf("%x", hash.Sum(nil))
 }
 
+//密码MD5值
+func GetPassowrdMd5Str(str string)string  {
+	return getMd5Str([]byte(str))
+}
+
+
 
 // 用户登录
 func (this *AuthService) Login(userName, password string) (*User, error) {
@@ -79,7 +85,7 @@ func (this *AuthService) Login(userName, password string) (*User, error) {
 		}
 	}
 
-	if user.Password != getMd5Str([]byte(password+user.Salt)) {
+	if user.Password != GetPassowrdMd5Str(password) {
 		return nil, errors.New("帐号或密码错误2")
 	}
 	if user.Status == -1 {

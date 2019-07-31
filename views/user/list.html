@@ -5,6 +5,19 @@
 			</div>
 		</div>
 
+
+
+		{{if .msg}}
+			<div class="alert alert-info" id="error_msg">
+				<button class="close" data-dismiss="alert">
+					<i class="ace-icon fa fa-times"></i>
+				</button>
+				{{.msg}}
+			</div>
+		{{end}}
+
+
+
 		<div class="space-4"></div>
 
 		<div class="row">
@@ -16,7 +29,7 @@
 						<th width="120">用户名</th>
 						<th width="200">Email</th>
 						<th width="200">最后登录时间</th>
-						<th>角色</th>
+						{{/*<th>角色</th>*/}}
 						<th width="80">状态</th>
 						<th width="120">操作</th>
 					</tr>
@@ -28,11 +41,11 @@
 							<td>{{$v.UserName}}</td>
 							<td>{{$v.Email}}</td>
 							<td>{{date $v.LastLogin "Y-m-d H:i:s"}}</td>
-							<td>
+							{{/*<td>*/}}
 							{{/*{{range $kk, $role := $v.RoleList}}*/}}
 								{{/*<span class="label label-white middle">{{$role.RoleName}}</span>*/}}
 							{{/*{{end}}*/}}
-							</td>
+							{{/*</td>*/}}
 							<td>
 							{{if eq $v.Status 0}}
 							<span class="green">正常</span>

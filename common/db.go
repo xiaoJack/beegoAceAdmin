@@ -10,7 +10,7 @@ import (
 var (
 	o                 orm.Ormer
 	tablePrefix       string             // 表前缀
-	UserService       *userService       // 用户服务
+	UserService       *User       // 用户服务
 )
 
 func Init() {
@@ -51,7 +51,7 @@ func Init() {
 
 
 func initService() {
-	UserService = &userService{}
+	UserService = &User{}
 }
 
 
