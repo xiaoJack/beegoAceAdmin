@@ -1,15 +1,11 @@
 package common
 
 import (
+	"github.com/astaxie/beego/utils"
+	"github.com/lisijie/gopub/app/libs"
 	"github.com/pkg/errors"
 	"time"
 )
-type userService struct{}
-
-func (this *userService) table() string {
-	return TableName("user")
-}
-
 
 type User struct {
 	Id         int
@@ -28,16 +24,15 @@ type User struct {
 
 
 
-
 // 分页获取用户列表
-func (this *userService) GetUserList(page, pageSize int) ([]User, error) {
+func (this *User) GetUserList(page, pageSize int) ([]User, error) {
 	offset := (page - 1) * pageSize
 	if offset < 0 {
 		offset = 0
 	}
 
 	var users []User
-	qs := o.QueryTable(this.table())
+	qs := o.QueryTable(TableName("user"))
 	_, err := qs.OrderBy("id").Limit(pageSize, offset).All(&users)
 
 	return users, err
@@ -45,14 +40,34 @@ func (this *userService) GetUserList(page, pageSize int) ([]User, error) {
 
 
 
+// 添加用户
+func (this *User) AddUser(userName, email, password string, sex int, status int) (*User, error) {
+	if exists, _ := this.GetUserByName(userName); exists.Id > 0 {
+		return nil, errors.New("用户名已存在")
+	}
+
+	user := &User{}
+	user.UserName = userName
+	user.Sex = sex
+	user.Email = email
+	user.Status = status
+	user.Salt = string(utils.RandomCreateBytes(10))
+	user.Password = libs.Md5([]byte(password + user.Salt))
+	// user.LastLogin = time.Date(0, 0, 0, 0, 0, 0, 0, time.UTC)
+	_, err := o.Insert(user)
+	return user, err
+}
+
+
+
 // 获取用户总数
-func (this *userService) GetTotal() (int64, error) {
-	return o.QueryTable(this.table()).Count()
+func (this *User) GetTotal() (int64, error) {
+	return o.QueryTable(TableName("user")).Count()
 }
 
 
 // 根据用户名获取用户信息
-func (this *userService) GetUserByName(userName string) (*User, error) {
+func (this *User) GetUserByName(userName string) (*User, error) {
 	user := &User{}
 	user.UserName = userName
 	err := o.Read(user, "UserName")
@@ -60,8 +75,27 @@ func (this *userService) GetUserByName(userName string) (*User, error) {
 }
 
 
+// 根据用户名获取用户信息
+func (this *User) GetUserById(Id int) (*User, error) {
+	user := &User{}
+	user.Id = Id
+	err := o.Read(user)
+	return user, err
+}
+
+
+//删除用户
+func (this *User)DeleteById(Id int)(int64, error)  {
+	user := &User{}
+	user.Id = Id
+	del, err := o.Delete(user)
+	return del, err
+}
+
+
+
 // 更新用户信息
-func (this *userService) UpdateUser(user *User, fileds ...string) error {
+func (this *User) UpdateUser(user *User, fileds ...string) error {
 	if len(fileds) < 1 {
 		return errors.New("更新字段不能为空")
 	}
