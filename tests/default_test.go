@@ -1,15 +1,17 @@
 package test
 
 import (
+	_ "admin/routers"
 	"net/http"
 	"net/http/httptest"
-	"testing"
-	"runtime"
 	"path/filepath"
-	_ "admin/routers"
+	"runtime"
+	"testing"
 
 	"github.com/astaxie/beego"
 	. "github.com/smartystreets/goconvey/convey"
+	 _ "github.com/astaxie/beego/session/redis"
+
 )
 
 func init() {
@@ -21,7 +23,7 @@ func init() {
 
 // TestBeego is a sample to run an endpoint test
 func TestBeego(t *testing.T) {
-	r, _ := http.NewRequest("GET", "/", nil)
+	r, _ := http.NewRequest("GET", "/user/login", nil)
 	w := httptest.NewRecorder()
 	beego.BeeApp.Handlers.ServeHTTP(w, r)
 
