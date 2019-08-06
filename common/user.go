@@ -2,7 +2,6 @@ package common
 
 import (
 	"github.com/astaxie/beego/utils"
-	"github.com/lisijie/gopub/app/libs"
 	"github.com/pkg/errors"
 	"time"
 )
@@ -52,7 +51,7 @@ func (this *User) AddUser(userName, email, password string, sex int, status int)
 	user.Email = email
 	user.Status = status
 	user.Salt = string(utils.RandomCreateBytes(10))
-	user.Password = libs.Md5([]byte(password + user.Salt))
+	user.Password = GetPassowrdMd5Str(password)
 	// user.LastLogin = time.Date(0, 0, 0, 0, 0, 0, 0, time.UTC)
 	_, err := o.Insert(user)
 	return user, err
