@@ -29,6 +29,7 @@ func main() {
 	beego.AddFuncMap("AssetsDomains",AssetsDomains)
 
 
+	
 
 	//beego.BConfig.WebConfig.Session.SessionOn = true
 	beego.Run()

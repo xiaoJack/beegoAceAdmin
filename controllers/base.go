@@ -28,6 +28,8 @@ type BaseController struct {
 
 
 func (this *BaseController) Prepare() {
+
+
 	controllerName, actionName := this.GetControllerAndAction()
 
 	this.controllerName = strings.ToLower(controllerName[0 : len(controllerName)-10])
