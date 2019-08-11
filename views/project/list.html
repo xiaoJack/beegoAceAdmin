@@ -1,0 +1,107 @@
+
+
+<style type="text/css">
+
+	.p-xxs {
+		padding: 5px;
+	}
+
+
+	.widget-head-color-box {
+		border-radius: 5px 5px 0px 0px;
+		margin-top: 10px;
+	}
+
+	.navy-bg {
+		background-color: #23b7e5;
+		color: #ffffff;
+	}
+
+
+	.widget-text-box {
+		padding: 20px;
+		border: 1px solid #e7eaec;
+		background: #ffffff;
+	}
+
+	.font-bold {
+		font-weight: 600;
+	}
+
+
+	.no-margins {
+		margin: 0 !important;
+	}
+
+    .btn-primary {
+        color: #ffffff !important;
+        background-color: #7266ba;
+        border-color: #7266ba;
+    }
+
+	.hr-line-dashed {
+		border-top: 1px dashed #e7eaec;
+		color: #ffffff;
+		background-color: #ffffff;
+		height: 1px;
+		margin: 20px 0;
+	}
+
+	a.btn-xs {
+		padding: 1px 5px;
+		font-size: 12px;
+		line-height: 1.5;
+	}
+
+	.p-xl {
+		padding: 40px;
+	}
+
+</style>
+
+
+
+
+<div class="wrapper wrapper-content animated fadeInRight">
+
+	<div class="row">
+
+		{{range $k, $v := .list}}
+
+			<div class="col-sm-3 m-b-sm" style="height:195px;">
+				<div class="widget-head-color-box navy-bg p-xxs">
+
+				</div>
+				<div class="widget-text-box">
+					<div class="text-center p-xxs">
+						<h2 class="font-bold no-margins">
+							<label proid="40" class="project" style="cursor:pointer;">{{$v.Project_name}}</label>
+						</h2>
+					</div>
+					<div class="hr-line-dashed"></div>
+					<p class="">{{$v.Project_describe}}</p>
+					<div class="text-right">
+
+						<a href="/project/edit/{{$v.Id}}" class="btn btn-xs btn-primary"> 项目设置</a>
+
+					</div>
+				</div>
+			</div>
+
+		{{end}}
+
+
+		<div class="col-sm-3 m-b-sm">
+			<div class="widget-head-color-box navy-bg p-xxs"></div>
+			<div class="widget-text-box  text-center p-xl">
+				<a href="/project/add">
+					<div class="icon">
+						<i class="img-responsive fa fa-plus" style="font-size: 90px;color: #dadada;"></i>
+					</div>
+				</a>
+			</div>
+		</div>
+	</div>
+
+</div>
+

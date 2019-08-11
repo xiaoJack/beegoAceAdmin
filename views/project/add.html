@@ -1,0 +1,141 @@
+
+<div class="alert alert-warning alert-dismissible hide" role="alert"></div>
+
+
+{{if .msg}}
+	<div class="alert alert-info" id="error_msg">
+		<button class="close" data-dismiss="alert">
+			<i class="ace-icon fa fa-times"></i>
+		</button>
+		{{.msg}}
+	</div>
+{{end}}
+
+
+
+<form class="form-horizontal ajax-form" method="post" action="{{urlfor "ProjectController.Add"}}">
+	<input type="hidden"  class="form-control" id="Id" name="Id" value="{{if .projectInfo.Id}}{{.projectInfo.Id}}{{end}}">
+
+	<div class="form-group">
+		<label for="username" class="col-sm-2 control-label">项目名称<label class="red">*</label></label>
+
+		<div class="col-sm-3">
+			<input type="text" class="form-control" id="project_name" name="project_name" value="{{if .projectInfo.Project_name}}{{.projectInfo.Project_name}}{{end}}">
+		</div>
+	</div>
+
+
+	<div class="form-group">
+		<label for="username" class="col-sm-2 control-label">项目描述</label>
+		<div class="col-sm-3">
+			<textarea class="form-control" id="project_describe" name="project_describe" value="{{if .projectInfo.Project_describe}}{{.projectInfo.Project_describe}}{{end}}" >{{if .projectInfo.Project_describe}}{{.projectInfo.Project_describe}}{{end}}</textarea>
+		</div>
+	</div>
+
+
+	<div class="form-group">
+		<label for="username" class="col-sm-2 control-label">项目域名<label class="red">*</label></label>
+		<div class="col-sm-3">
+			<input type="text" class="form-control" id="project_url" name="project_url" value="{{if .projectInfo.Project_url}}{{.projectInfo.Project_url}}{{end}}">
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label for="username" class="col-sm-2 control-label">测试环境IP</label>
+		<div class="col-sm-3">
+			<input type="text" class="form-control" id="test_ip" name="test_ip" value="{{if .projectInfo.Test_ip}}{{.projectInfo.Test_ip}}{{end}}">
+		</div>
+	</div>
+
+
+	<div class="form-group">
+		<label for="username" class="col-sm-2 control-label">预发布环境IP</label>
+		<div class="col-sm-3">
+			<input type="text" class="form-control" id="release_ip" name="release_ip" value="{{if .projectInfo.Release_ip}}{{.projectInfo.Release_ip}}{{end}}">
+		</div>
+	</div>
+
+
+	<div class="form-group">
+		<label for="username" class="col-sm-2 control-label">生产环境IP</label>
+		<div class="col-sm-3">
+			<input type="text" class="form-control" id="pro_ip" name="pro_ip" value="{{if .projectInfo.Pro_ip}}{{.projectInfo.Pro_ip}}{{end}}">
+		</div>
+	</div>
+
+
+
+	<div class="form-group">
+		<label for="status" class="col-sm-2 control-label">是否开启监控</label>
+		<div class="col-sm-4">
+			<div class="radio-inline">
+				<label>
+					<input type="radio" name="is_monitor" id="is_monitor" value="1" {{if .projectInfo.Is_monitor }}{{if  eq .projectInfo.Is_monitor  1}}checked{{end}} {{else}}checked {{end}} >
+					是
+				</label>
+			</div>
+			<div class="radio-inline">
+				<label>
+					<input type="radio" name="is_monitor" id="is_monitor" value="2" {{if .projectInfo.Is_monitor }}{{if  eq .projectInfo.Is_monitor  2}}checked{{end}}{{end}}>
+					否
+				</label>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="form-group">
+		<label for="username" class="col-sm-2 control-label">监控触发地址</label>
+		<div class="col-sm-3">
+			<input type="text" class="form-control" id="monitor_url" name="monitor_url" value="{{if .projectInfo.Monitor_url}}{{.projectInfo.Monitor_url}}{{end}}">
+		</div>
+	</div>
+
+
+
+	<div class="clearfix form-actions">
+		<div class="col-sm-offset-2 col-sm-10">
+			<button type="submit" class="btn btn-info"><i class="ace-icon fa fa-check bigger-110"></i>提交</button>
+			<a href="{{urlfor "UserController.List"}}" class="btn btn-default"><i class="ace-icon fa fa-reply bigger-110"></i>返回</a>
+		</div>
+	</div>
+</form>
+
+<script>
+$(function () {
+	if(!ace.vars['touch']) {
+		$('.chosen-select').chosen({allow_single_deselect:true}); 
+		//resize the chosen on window resize
+	
+		$(window)
+		.off('resize.chosen')
+		.on('resize.chosen', function() {
+			$('.chosen-select').each(function() {
+				 var $this = $(this);
+				 $this.next().css({'width': $this.parent().width()});
+			})
+		}).trigger('resize.chosen');
+		//resize chosen on sidebar collapse/expand
+		$(document).on('settings.ace.chosen', function(e, event_name, event_val) {
+			if(event_name != 'sidebar_collapsed') return;
+			$('.chosen-select').each(function() {
+				 var $this = $(this);
+				 $this.next().css({'width': $this.parent().width()});
+			})
+		});
+	
+		$('#chosen-multiple-style .btn').on('click', function(e){
+			var target = $(this).find('input[type=radio]');
+			var which = parseInt(target.val());
+			if(which == 2) $('#role_ids').addClass('tag-input-style');
+			 else $('#role_ids').removeClass('tag-input-style');
+		});
+
+
+
+
+
+
+	}
+});
+</script>

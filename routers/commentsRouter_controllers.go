@@ -16,6 +16,33 @@ func init() {
             Filters: nil,
             Params: nil})
 
+    beego.GlobalControllerRouter["admin/controllers:ProjectController"] = append(beego.GlobalControllerRouter["admin/controllers:ProjectController"],
+        beego.ControllerComments{
+            Method: "Add",
+            Router: `/project/add`,
+            AllowHTTPMethods: []string{"get","post"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["admin/controllers:ProjectController"] = append(beego.GlobalControllerRouter["admin/controllers:ProjectController"],
+        beego.ControllerComments{
+            Method: "Edit",
+            Router: `/project/edit/:Id:int`,
+            AllowHTTPMethods: []string{"get"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["admin/controllers:ProjectController"] = append(beego.GlobalControllerRouter["admin/controllers:ProjectController"],
+        beego.ControllerComments{
+            Method: "List",
+            Router: `/project/list`,
+            AllowHTTPMethods: []string{"get"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
     beego.GlobalControllerRouter["admin/controllers:UserController"] = append(beego.GlobalControllerRouter["admin/controllers:UserController"],
         beego.ControllerComments{
             Method: "Del",
