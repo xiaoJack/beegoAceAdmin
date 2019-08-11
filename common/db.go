@@ -36,6 +36,7 @@ func Init() {
 
 	orm.RegisterModelWithPrefix(tablePrefix,
 		new(User),
+		new(Project),
 	)
 
 	if beego.AppConfig.String("runmode") == "dev" {

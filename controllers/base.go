@@ -2,7 +2,9 @@ package controllers
 
 import (
 	"admin/common"
+	"fmt"
 	"github.com/astaxie/beego"
+	"strconv"
 	"strings"
 )
 
@@ -94,6 +96,22 @@ func (this *BaseController) showMsg(msg string, msgno int, redirect ...string) {
 		this.Render()
 		this.StopRun()
 	}
+}
+
+
+func (this *BaseController) GetIntParamFromURL(param string) int {
+	paramStr := this.Ctx.Input.Param(param)
+	if len(paramStr) == 0 {
+		this.showMsg(fmt.Sprintf("Invalid %s in URL", param), MSG_ERR)
+	}
+
+	paramInt, err := strconv.Atoi(paramStr)
+	if err != nil || paramInt < 0 {
+		this.showMsg(fmt.Sprintf("Invalid %s in URL", param), MSG_ERR)
+
+	}
+
+	return paramInt
 }
 
 

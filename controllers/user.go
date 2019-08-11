@@ -16,11 +16,6 @@ type UserController struct {
 }
 
 
-// URLMapping ...
-func (c *UserController) URLMapping() {
-	c.Mapping("get,post", c.Login)
-}
-
 
 // @router /user/list [get]
 func (this *UserController)List()  {
