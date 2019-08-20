@@ -1,8 +1,8 @@
 package main
 
 import (
-	"admin/common"
-	_ "admin/routers"
+	"github.com/xiaoJack/beegoAceAdmin/common"
+	_ "github.com/xiaoJack/beegoAceAdmin/routers"
 	"github.com/astaxie/beego"
 	_ "github.com/astaxie/beego/session/redis"
 )

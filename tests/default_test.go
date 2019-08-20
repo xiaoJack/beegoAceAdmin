@@ -1,7 +1,7 @@
 package test
 
 import (
-	_ "admin/routers"
+	_ "github.com/xiaoJack/beegoAceAdmin/routers"
 	"net/http"
 	"net/http/httptest"
 	"path/filepath"

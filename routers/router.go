@@ -1,7 +1,7 @@
 package routers
 
 import (
-	"admin/controllers"
+	"github.com/xiaoJack/beegoAceAdmin/controllers"
 	"github.com/astaxie/beego"
 )
 
