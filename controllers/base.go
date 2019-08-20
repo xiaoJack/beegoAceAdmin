@@ -1,7 +1,7 @@
 package controllers
 
 import (
-	"admin/common"
+	"github.com/xiaoJack/beegoAceAdmin/common"
 	"fmt"
 	"github.com/astaxie/beego"
 	"strconv"

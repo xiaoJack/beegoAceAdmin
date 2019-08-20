@@ -31,7 +31,7 @@ CREATE TABLE `t_project` (
   `pro_ip` varchar(15) NOT NULL COMMENT '生产环境IP',
   `is_monitor` tinyint(2) NOT NULL DEFAULT '1' COMMENT '1开启监控，2不监控，默认开启',
   `monitor_url` varchar(100) NOT NULL COMMENT '监控触发URL',
-  `create_time` timestamp(6) NULL DEFAULT NULL,
-  `update_time` timestamp(6) NULL DEFAULT NULL,
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;

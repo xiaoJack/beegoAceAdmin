@@ -1,8 +1,8 @@
 package controllers
 
 import (
-	"admin/common"
-	"admin/libs"
+	"github.com/xiaoJack/beegoAceAdmin/common"
+	"github.com/xiaoJack/beegoAceAdmin/libs"
 	"fmt"
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/validation"
