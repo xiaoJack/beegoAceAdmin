@@ -1,0 +1,90 @@
+
+
+
+
+
+<div class="wrapper wrapper-content animated fadeInRight">
+
+    <div class="col-sm-2">
+        <iframe src="/project/ztree/{{.projectInfo.Id}}" frameborder="0" height="550px" width="260px"></iframe>
+    </div>
+
+
+    <div class="col-sm-9">
+        <div class="tabbable">
+            <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
+                <li class="">
+                    <a  href="/project/details/{{.projectInfo.Id}}" aria-expanded="false">项目详情</a>
+                </li>
+
+                <li class="">
+                    <a data-toggle="tab" href="#profile4" aria-expanded="false">项目监控</a>
+                </li>
+
+                <li class="">
+                    <a data-toggle="tab" href="#dropdown14" aria-expanded="false">项目测试</a>
+                </li>
+
+                <li class="active">
+                    <a data-toggle="tab" href="#addLabel" aria-expanded="true">增加标签</a>
+                </li>
+            </ul>
+
+            <div class="tab-content">
+                <div id="addLabel" class="tab-pane active">
+
+
+
+
+
+                    <div class="alert alert-warning alert-dismissible hide" role="alert"></div>
+
+
+                    {{if .msg}}
+                        <div class="alert alert-info" id="error_msg">
+                            <button class="close" data-dismiss="alert">
+                                <i class="ace-icon fa fa-times"></i>
+                            </button>
+                            {{.msg}}
+                        </div>
+                    {{end}}
+
+
+
+                    <form id="addlabel"   class="form-horizontal ajax-form" method="post" action="/project/addlabel/{{.projectInfo.Id}}">
+                        <input type="hidden"  class="form-control" id="Id" name="Id" value="{{if .projectLabel.Id}}{{.projectLabel.Id}}{{end}}">
+                        <input type="hidden"  class="form-control" id="Project_id" name="Project_id" value="{{.projectInfo.Id}}">
+
+                        <div class="form-group">
+                            <label for="username" class="col-sm-2 control-label">标签名称<label class="red">*</label></label>
+
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control" id="Label_name" name="Label_name" value="{{if .projectLabel.Label_name}}{{.projectLabel.Label_name}}{{end}}">
+                            </div>
+
+                            <button type="submit" class="btn btn-info submit">提交</button>
+
+                        </div>
+
+
+                    </form>
+
+
+
+
+
+
+
+
+
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+
+</div>
+

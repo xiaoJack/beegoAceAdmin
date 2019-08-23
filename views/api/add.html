@@ -1,0 +1,145 @@
+
+
+
+
+
+<div class="wrapper wrapper-content animated fadeInRight">
+
+    <div class="col-sm-2">
+        <iframe src="/project/ztree/{{.projectInfo.Id}}" frameborder="0" height="550px" width="260px"></iframe>
+    </div>
+
+
+    <div class="col-sm-10">
+        <div class="tabbable">
+            <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
+                <li class="">
+                    <a  href="/project/details/{{.projectInfo.Id}}" aria-expanded="false">项目详情</a>
+                </li>
+
+                <li class="">
+                    <a data-toggle="tab" href="#profile4" aria-expanded="false">项目监控</a>
+                </li>
+
+                <li class="">
+                    <a data-toggle="tab" href="#dropdown14" aria-expanded="false">项目测试</a>
+                </li>
+
+                <li class="active">
+                    <a data-toggle="tab" href="#addApi" aria-expanded="true">接口详情</a>
+                </li>
+            </ul>
+
+            <div class="tab-content">
+                <div id="addApi" class="tab-pane active">
+
+
+                    <div class="alert alert-warning alert-dismissible hide" role="alert"></div>
+
+                    {{if .msg}}
+                        <div class="alert alert-info" id="error_msg">
+                            <button class="close" data-dismiss="alert">
+                                <i class="ace-icon fa fa-times"></i>
+                            </button>
+                            {{.msg}}
+                        </div>
+                    {{end}}
+
+
+
+                    <form id="apiAdd" class="form-horizontal ajax-form" method="post" action="/api/add/{{.projectInfo.Id}}/{{.projectLabelInfo.Id}}">
+                        <input type="hidden"  class="form-control" id="Id" name="Id" value="{{if .apiInfo}}{{.apiInfo.Id}}{{end}}">
+                        <input type="hidden"  class="form-control" id="Project_id" name="Project_id" value="{{.projectInfo.Id}}">
+                        <input type="hidden"  class="form-control" id="Project_label_id" name="Project_label_id" value="{{.projectLabelInfo.Id}}">
+
+                        <div class="form-group">
+                            <label for="username" class="col-sm-1 control-label">项目名称<label class="red">*</label></label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control"  disabled="disabled" value="{{if .projectInfo}}{{.projectInfo.Project_name}}{{end}}">
+                            </div>
+
+                            <label for="username" class="col-sm-1 control-label">所属标签<label class="red">*</label></label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" disabled="disabled" value="{{if .projectLabelInfo}}{{.projectLabelInfo.Label_name}}{{end}}">
+                            </div>
+
+                            <label for="username" class="col-sm-1 control-label">接口名称<label class="red">*</label></label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" id="Api_name" name="Api_name" value="{{if .apiInfo}}{{.apiInfo.Api_name}}{{end}}">
+                            </div>
+
+
+
+                            <button type="submit" class="btn btn-info submit">保存</button>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="username" class="col-sm-1 control-label">接口URL<label class="red">*</label></label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" id="Api_url" name="Api_url" value="{{if .apiInfo}}{{.apiInfo.Api_url}}{{end}}">
+                            </div>
+
+                            <label for="username" class="col-sm-1 control-label">请求方法<label class="red">*</label></label>
+                            <div class="col-sm-2">
+                                <select name="Method" class="form-control" id="form-field-select-1">
+                                    {{range $index, $name := .ApiMethod}}
+                                        <option value="{{$index}}" {{if $.apiInfo}}{{if eq $.apiInfo.Method $index}} selected {{end}}{{end}} >{{$name}}</option>
+
+                                    {{end}}
+                                </select>
+                            </div>
+
+
+                            <label for="username" class="col-sm-1 control-label">接口状态<label class="red">*</label></label>
+                            <div class="col-sm-2">
+                                <select name="Status" class="form-control" id="form-field-select-1">
+                                    {{range $index, $name := .ApiStatus}}
+                                        <option value="{{$index}}" {{if $.apiInfo}} {{if eq $.apiInfo.Status $index}} selected {{end}}{{end}} >{{$name}}</option>
+
+                                    {{end}}
+                                </select>
+                            </div>
+
+
+
+                        </div>
+
+                        <div class="form-group">
+                            <label for="username" class="col-sm-1 control-label">接口描述<label class="red">*</label></label>
+                            <div class="col-sm-10">
+                                <textarea id="form-field-11" class="autosize-transition form-control" name="Intro" style="overflow: hidden; overflow-wrap: break-word; resize: horizontal; height: 52px;">
+                                    {{if .apiInfo}}{{.apiInfo.Intro}}{{end}}
+                                </textarea>
+                            </div>
+
+
+
+                        </div>
+
+
+
+
+                    </form>
+
+
+
+
+
+
+
+
+
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+
+</div>
+

@@ -1,0 +1,286 @@
+<link rel="stylesheet" href="{{AssetsDomains}}assets/ztree/css/demo.css" type="text/css">
+<link rel="stylesheet" href="{{AssetsDomains}}assets/ztree/css/zTreeStyle/zTreeStyle.css" type="text/css">
+
+<script type="text/javascript" src="{{AssetsDomains}}assets/ztree/js/jquery-1.4.4.min.js"></script>
+<script type="text/javascript" src="{{AssetsDomains}}assets/ztree/js/jquery.ztree.core.js"></script>
+<script type="text/javascript" src="{{AssetsDomains}}assets/ztree/js/jquery.ztree.excheck.js"></script>
+<script type="text/javascript" src="{{AssetsDomains}}assets/ztree/js/jquery.ztree.exedit.js"></script>
+<script type="text/javascript" src="{{AssetsDomains}}assets/ztree/js/jquery.ztree.exhide.js"></script>
+<script type="text/javascript" src="{{AssetsDomains}}assets/ztree/js/fuzzysearch.js"></script>
+
+<style type="text/css">
+    .ztree li span.button.add {margin-left:2px; margin-right: -1px; background-position:-144px 0; vertical-align:top; *vertical-align:middle}
+    #treeDemo {height: 488px;width: 218px}
+    #key {    width: 230px;    height: 30px;}
+
+    .ztree li span.button.switch.level0 {visibility:hidden; width:1px;}
+    .ztree li ul.level0 {padding:0; background:none;}
+</style>
+
+
+
+
+
+<div class="wrapper wrapper-content animated fadeInRight">
+
+
+
+    <div class="zTreeDemoBackground left">
+        <input type="text" id="key" value="" class="empty" placeholder="关键字搜索"/><br/>
+        <ul id="treeDemo" class="ztree"></ul>
+
+    </div>
+
+
+    <SCRIPT type="text/javascript">
+        <!--
+        var setting = {
+            view: {
+                dblClickExpand: dblClickExpand,
+                addHoverDom: addHoverDom,
+                removeHoverDom: removeHoverDom,
+                selectedMulti: false,
+            },
+            edit: {
+                enable: true,
+                editNameSelectAll: true,
+                showRemoveBtn: showRemoveBtn,
+                showRenameBtn: showRenameBtn
+            },
+            data: {
+                simpleData: {
+                    enable: true
+                }
+            },
+            callback: {
+                beforeDrag: beforeDrag,
+                beforeEditName: beforeEditName,
+                beforeRemove: beforeRemove,
+                beforeRename: beforeRename,
+                onRemove: onRemove,
+                onRename: onRename,
+                onClick: onClick
+            }
+        };
+
+
+
+
+
+
+        function dblClickExpand(treeId, treeNode) {
+            return treeNode.level > 0;
+        }
+
+
+        var zNodes = eval({{.ztree}});
+
+        // var zNodes =[
+        //     // { id:1, pId:0, name:"最佳东方", open:true},
+        //
+        //     { id:1, pId:0, name:"APP", open:true},
+        //     { id:3, pId:1, name:"个人中心", open:true},
+        //     { id:11, pId:3, name:"叶子333"},
+        //     { id:4, pId:1, name:"简历", open:true},
+        //     { id:21, pId:4, name:"叶子节点 2-1"},
+        //     { id:22, pId:4, name:"叶子节点 2-2"},
+        //     { id:23, pId:4, name:"叶子节点 2-3"},
+        //     { id:5, pId:1, name:"首页", open:true},
+        //     { id:31, pId:5, name:"叶子节点 3-1"},
+        //     { id:32, pId:5, name:"叶子节点 3-2"},
+        //     { id:33, pId:5, name:"叶子节点 3-3"},
+        //
+        //     // { id:22, pId:1, name:"小程序", open:true},
+        //     // { id:30, pId:22, name:"个人中心", open:true},
+        //     // { id:111, pId:30, name:"叶子333"},
+        //     // { id:24, pId:22, name:"简历", open:true},
+        //     // { id:211, pId:24, name:"叶子节点 2-1"},
+        //     // { id:221, pId:24, name:"叶子节点 2-2"},
+        //     // { id:231, pId:24, name:"叶子节点 2-3"},
+        //     // { id:25, pId:22, name:"首页", open:true},
+        //     // { id:311, pId:25, name:"叶子节点 3-1"},
+        //     // { id:321, pId:25, name:"叶子节点 3-2"},
+        //     // { id:331, pId:25, name:"叶子节点 3-3"}
+        // ];
+
+
+
+        function onClick(event, treeId, treeNode, clickFlag) {
+            if (treeNode.level == 0){
+                window.parent.location.href="/project/details/"+treeNode.id; //在父级窗口中打开窗口
+                return true
+            }
+            if (treeNode.level < 2)return false; //父节点和子节点不做onClick事件
+            // alert("你的treeId是："+treeNode.id+"level:"+treeNode.level+"Pid:"+treeNode.pId);
+
+            var parentPidNode = treeNode.getParentNode();
+
+            var treeNodeId = treeNode.id;
+            var treeNodeIdArr = treeNodeId.split("_");
+            // @router /api/edit/:ProjectId:int/:LabelId:int/:ApiId:int [get]
+            var ProjectId = parentPidNode.pId;
+            var LabelId = treeNode.pId;
+            var ApiId = treeNodeIdArr[1];
+
+            window.parent.location.href="/api/edit/"+ProjectId+"/"+LabelId+"/"+ApiId; //在父级窗口中打开窗口
+
+        }
+
+
+
+
+        var log, className = "dark";
+        function beforeDrag(treeId, treeNodes) {
+            return false;
+        }
+        function beforeEditName(treeId, treeNode) {
+
+            //alert("id="+treeNode.id+" tId="+treeNode.pId);
+            window.parent.location.href="/project/editlabel/"+treeNode.pId+"/"+treeNode.id; //在父级窗口中打开窗口
+
+
+            return false;
+        }
+        function beforeRemove(treeId, treeNode) {
+
+            var child = treeNode.children;
+            //console.log(treeNode.children.length);
+
+            if (isArray(child)){  //如果是数据treeNode.children.length就有值，也就相当于有子树存在
+                alert("标签下面有接口不能删除！！！")
+                return false;
+            }
+
+
+            className = (className === "dark" ? "":"dark");
+            //showLog("[ "+getTime()+" beforeRemove ]&nbsp;&nbsp;&nbsp;&nbsp; " + treeNode.name);
+            var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+            zTree.selectNode(treeNode);
+
+            if (confirm("你确认要删除标签（" + treeNode.name + "）吗？")) {
+                window.parent.location.href="/project/dellabel/"+treeNode.pId+"/"+treeNode.id; //在父级窗口中打开窗口
+            }
+
+            return false;
+
+        }
+
+        function isArray(o){
+            return Object.prototype.toString.call(o)=='[object Array]';
+        }
+
+        function onRemove(e, treeId, treeNode) {
+            alert("删除不成功")
+            return false
+            //showLog("[ "+getTime()+" onRemove ]&nbsp;&nbsp;&nbsp;&nbsp; " + treeNode.name);
+        }
+        function beforeRename(treeId, treeNode, newName, isCancel) {
+
+            className = (className === "dark" ? "":"dark");
+            showLog((isCancel ? "<span style='color:red'>":"") + "[ "+getTime()+" beforeRename ]&nbsp;&nbsp;&nbsp;&nbsp; " + treeNode.name + (isCancel ? "</span>":""));
+            if (newName.length == 0) {
+                setTimeout(function() {
+                    var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+                    zTree.cancelEditName();
+                    alert("节点名称不能为空.");
+                }, 0);
+                return false;
+            }
+            return true;
+        }
+        function onRename(e, treeId, treeNode, isCancel) {
+
+            //showLog((isCancel ? "<span style='color:red'>":"") + "[ "+getTime()+" onRename ]&nbsp;&nbsp;&nbsp;&nbsp; " + treeNode.name + (isCancel ? "</span>":""));
+        }
+        function showRemoveBtn(treeId, treeNode) {
+            if (treeNode.level == 0){
+                return false;
+            }
+
+            if (treeNode.level < 2){
+                return true;
+            }
+
+            //return !treeNode.isFirstNode;
+        }
+        function showRenameBtn(treeId, treeNode) {
+            if (treeNode.level == 0)return false;
+
+            if (treeNode.level < 2){
+                return true;
+            }
+
+
+            //return !treeNode.isLastNode;
+        }
+        function showLog(str) {
+            if (!log) log = $("#log");
+            log.append("<li class='"+className+"'>"+str+"</li>");
+            if(log.children("li").length > 8) {
+                log.get(0).removeChild(log.children("li")[0]);
+            }
+        }
+        function getTime() {
+            var now= new Date(),
+                h=now.getHours(),
+                m=now.getMinutes(),
+                s=now.getSeconds(),
+                ms=now.getMilliseconds();
+            return (h+":"+m+":"+s+ " " +ms);
+        }
+
+        var newCount = 1;
+        function addHoverDom(treeId, treeNode) {
+
+            if (treeNode.level > 1){ //接口不用显示增加的功能
+                return false;
+            }
+
+
+            var sObj = $("#" + treeNode.tId + "_span");
+            if (treeNode.editNameFlag || $("#addBtn_"+treeNode.tId).length>0) return;
+            var addStr = "<span class='button add' id='addBtn_" + treeNode.tId
+                + "' title='add node' onfocus='this.blur();'></span>";
+            sObj.after(addStr);
+            var btn = $("#addBtn_"+treeNode.tId);
+            if (btn) btn.bind("click", function(){
+
+
+                if (treeNode.level == 0){ //根目录增加分类
+                    window.parent.location.href="/project/addlabel/"+treeNode.id; //在父级窗口中打开窗口
+
+                    return false;
+                }
+
+
+                if (treeNode.level == 1){ //分类里面增加接口
+                    window.parent.location.href="/api/add/"+treeNode.pId+"/"+treeNode.id; //在父级窗口中打开窗口
+                    return false;
+                }
+
+            });
+        };
+        function removeHoverDom(treeId, treeNode) {
+            $("#addBtn_"+treeNode.tId).unbind().remove();
+        };
+        function selectAll() {
+            var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+            zTree.setting.edit.editNameSelectAll =  $("#selectAll").attr("checked");
+        }
+
+        $(document).ready(function(){
+
+            //var $jq = jQuery.noConflict(true);
+
+            $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+            $("#selectAll").bind("click", selectAll);
+            fuzzySearch('treeDemo','#key',null,true); //初始化模糊搜索方法
+
+        });
+        //-->
+    </SCRIPT>
+
+
+
+</div>
+

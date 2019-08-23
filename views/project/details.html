@@ -1,0 +1,114 @@
+
+
+
+
+
+<div class="wrapper wrapper-content animated fadeInRight">
+
+    <div class="col-sm-2">
+        <iframe src="/project/ztree/{{.projectInfo.Id}}" frameborder="0" height="550px" width="260px"></iframe>
+    </div>
+
+
+    <div class="col-sm-9 projectRight">
+        <div class="tabbable">
+            <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
+                <li class="active">
+                    <a data-toggle="tab" href="#home4" aria-expanded="true">项目详情</a>
+                </li>
+
+                <li class="">
+                    <a data-toggle="tab" href="#profile4" aria-expanded="false">项目监控</a>
+                </li>
+
+                <li class="">
+                    <a data-toggle="tab" href="#dropdown14" aria-expanded="false">项目测试</a>
+                </li>
+            </ul>
+
+            <div class="tab-content">
+                <div id="home4" class="tab-pane active">
+
+                    <div class="profile-user-info profile-user-info-striped">
+                        <div class="profile-info-row">
+                            <div class="profile-info-name"> 项目名称 </div>
+
+                            <div class="profile-info-value">
+                                <span class="editable editable-click" id="username">{{.projectInfo.Project_name}}</span>
+                            </div>
+                        </div>
+
+                        <div class="profile-info-row">
+                            <div class="profile-info-name"> 项目描述 </div>
+
+                            <div class="profile-info-value">
+                                <span class="editable editable-click" id="country">{{.projectInfo.Project_describe}}</span>
+                            </div>
+                        </div>
+
+                        <div class="profile-info-row">
+                            <div class="profile-info-name"> 项目域名 </div>
+
+                            <div class="profile-info-value">
+                                <span class="editable editable-click" id="age">{{.projectInfo.Project_url}}</span>
+                            </div>
+                        </div>
+
+                        <div class="profile-info-row">
+                            <div class="profile-info-name"> 测试环境IP </div>
+
+                            <div class="profile-info-value">
+                                <span class="editable editable-click" id="signup">{{.projectInfo.Test_ip}}</span>
+                            </div>
+                        </div>
+
+                        <div class="profile-info-row">
+                            <div class="profile-info-name"> 预发布环境IP </div>
+
+                            <div class="profile-info-value">
+                                <span class="editable editable-click" id="login">3{{.projectInfo.Release_ip}}</span>
+                            </div>
+                        </div>
+
+                        <div class="profile-info-row">
+                            <div class="profile-info-name"> 生产环境IP </div>
+
+                            <div class="profile-info-value">
+                                <span class="editable editable-click" id="about">{{.projectInfo.Pro_ip}}</span>
+                            </div>
+                        </div>
+
+                        <div class="profile-info-row">
+                            <div class="profile-info-name"> 是否开启监控 </div>
+
+                            <div class="profile-info-value">
+                                <span class="editable editable-click" id="about">E{{.projectInfo.Is_monitor}}</span>
+                            </div>
+                        </div>
+
+                        <div class="profile-info-row">
+                            <div class="profile-info-name"> 监控触发地址 </div>
+
+                            <div class="profile-info-value">
+                                <span class="editable editable-click" id="about">{{.projectInfo.Monitor_url}}</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div id="profile4" class="tab-pane">
+                    <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid.</p>
+                </div>
+
+                <div id="dropdown14" class="tab-pane">
+                    <p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
